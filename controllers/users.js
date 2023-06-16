@@ -62,7 +62,7 @@ const updateUser = (req, res) => {
       res.status(ERROR_NOT_FOUND).send({ message: 'Пользователь с указанным _id не найден.' });
       return;
     }
-    res.status(STATUS_OK).send({ data: user });
+    res.send({ data: user });
   })
   .catch((err) => {
     if (err.name === 'ValidationError') {
@@ -90,7 +90,7 @@ const updateAvatar = (req, res) => {
       res.status(ERROR_NOT_FOUND).send({ message: 'Пользователь с указанным _id не найден.' });
       return;
     }
-    res.status(STATUS_OK).send({ data: user });
+    res.send({ data: user });
   })
   .catch((err) => {
     if (err.name === 'ValidationError') {
