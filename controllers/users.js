@@ -6,7 +6,7 @@ const {STATUS_OK,
 
 const getUsers = (req, res) => {
   User.find({})
-  .then(user => res.status(STATUS_OK).send({ data: user }))
+  .then(user => res.send({ data: user }))
   .catch(() => res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию.'}))
 }
 

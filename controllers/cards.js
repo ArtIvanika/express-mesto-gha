@@ -1,5 +1,5 @@
 const Card = require('../models/card');
-const {STATUS_OK,
+const {
   ERROR_INCORRECT_DATA,
   ERROR_NOT_FOUND,
   ERROR_DEFAULT} = require('../utils/status')
