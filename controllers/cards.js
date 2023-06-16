@@ -22,7 +22,6 @@ const createCard = (req, res) => {
         return;
       }
       res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию' });
-      return;
     });
 };
 
@@ -41,7 +40,6 @@ const deleteCardById = (req, res) => {
         return;
       }
        res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию' });
-       return
     });
 };
 
@@ -65,7 +63,7 @@ const putCardLike = (req, res) => {
           return;
         }
        res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию' });
-       return;
+
       });
 };
 
@@ -90,7 +88,6 @@ const deleteCardLike = (req, res) => {
         return;
       }
        res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию' });
-       return;
       });
 };
 
