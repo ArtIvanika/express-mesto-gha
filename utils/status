@@ -1,4 +1,4 @@
-const STATUS_OK = 200;
+const STATUS_OK = 201;
 const ERROR_INCORRECT_DATA= 400;
 const ERROR_NOT_FOUND = 404;
 const ERROR_DEFAULT = 500;

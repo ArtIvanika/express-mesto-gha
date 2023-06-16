@@ -6,7 +6,7 @@ const {STATUS_OK,
 
 const getCards = (req, res) => {
   Card.find({})
-    .then((card) => res.status(STATUS_OK).send({ data: card }))
+    .then(card => res.status(STATUS_OK).send({ data: card }))
     .catch(() => res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию' }));
 };
 
