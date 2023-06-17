@@ -9,7 +9,7 @@ const {
 
 const getCards = (req, res) => {
   Card.find({})
-    .then((card) => res.status(STATUS_OK).send({ data: card }))
+    .then((card) => res.send({ data: card }))
     .catch(() => res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию' }));
 };
 
@@ -17,7 +17,7 @@ const createCard = (req, res) => {
   const { name, link } = req.body;
 
   Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.status(STATUS_OK).send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         res

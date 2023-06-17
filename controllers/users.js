@@ -29,9 +29,9 @@ const getUserById = (req, res) => {
           .send({ message: 'Пользователь по указанному _id не найден.' });
       } else if (err.name === 'CastError') {
         res.status(ERROR_INCORRECT_DATA).send({ message: 'Переданы некорректные данные при создании пользователя.' });
-      } else {
-        res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию.' });
+        return;
       }
+      res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию.' });
     });
 };
 
