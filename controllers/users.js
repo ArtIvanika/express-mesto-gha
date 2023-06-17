@@ -14,26 +14,50 @@ const getUsers = (req, res) => {
     });
 };
 
-// попробовать orFail
 const getUserById = (req, res) => {
   const { userId } = req.params;
+
   User.findById(userId)
-    .orFail(new Error('NotValidId'))
+
     .then((user) => {
+      if (!user) {
+        res
+          .status(ERROR_NOT_FOUND)
+          .send({ message: 'Пользователь по указанному _id не найден.' });
+
+        return;
+      }
       res.send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(ERROR_INCORRECT_DATA).send({ message: 'Переданы некорректные данные при создании пользователя.' });
-      } else if (err.name === 'NotValidId') {
-        res
-          .status(ERROR_NOT_FOUND)
-          .send({ message: 'Пользователь по указанному _id не найден.' });
+        res.status(ERROR_INCORRECT_DATA).send({
+          message: 'Переданы некорректные данные при создании пользователя.',
+        });
         return;
       }
       res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию.' });
     });
 };
+
+// // попробовать orFail но тест выдает ошибку "Код ответа равен 404"
+// const getUserById = (req, res) => {
+//   const { userId } = req.params;
+//   User.findById(userId)
+//     .orFail(new Error('NotValidId'))
+//     .then((user) => {
+//       res.send({ data: user });
+//     })
+//     .catch((err) => {
+//       if (err.name === 'CastError') {
+//         res.status(ERROR_INCORRECT_DATA).send({ message: 'Переданы некорректные данные при создании пользователя.' });
+//       } else if (err.name === 'NotValidId') {
+//         res.status(ERROR_NOT_FOUND).send({ message: 'Пользователь по указанному _id не найден.' });
+//         return;
+//       }
+//       res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию.' });
+//     });
+// };
 
 const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
