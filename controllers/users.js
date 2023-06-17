@@ -23,12 +23,12 @@ const getUserById = (req, res) => {
       res.send({ data: user });
     })
     .catch((err) => {
-      if (err.name === 'NotValidId') {
+      if (err.name === 'CastError') {
+        res.status(ERROR_INCORRECT_DATA).send({ message: 'Переданы некорректные данные при создании пользователя.' });
+      } else if (err.name === 'NotValidId') {
         res
           .status(ERROR_NOT_FOUND)
           .send({ message: 'Пользователь по указанному _id не найден.' });
-      } else if (err.name === 'CastError') {
-        res.status(ERROR_INCORRECT_DATA).send({ message: 'Переданы некорректные данные при создании пользователя.' });
         return;
       }
       res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию.' });
