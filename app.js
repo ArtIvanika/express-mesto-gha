@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi } = require('celebrate');
+const { errors } = require('celebrate');
 const routes = require('./routes/index');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
@@ -43,6 +44,7 @@ app.post('/signin', celebrate({
 // app.use('/cards', require('./routes/cards'));
 app.use(auth);
 app.use(routes);
+app.use(errors());
 
 app.use((err, req, res, next) => {
   // если у ошибки нет статуса, выставляем 500
