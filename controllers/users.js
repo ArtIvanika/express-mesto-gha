@@ -176,13 +176,14 @@ const getCurrentUser = (req, res, next) => {
       }
       res.send({ data: user });
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(BadRequest('Переданы некорректные данные'));
-      } else if (err.message === 'NotFound') {
-        next(new NotFoundError('Пользователь с указанным _id не найден'));
-      } else next(err);
-    });
+    .catch(next);
+  // .catch((err) => {
+  //   if (err.name === 'CastError') {
+  //     next(BadRequest('Переданы некорректные данные'));
+  //   } else if (err.message === 'NotFound') {
+  //     next(new NotFoundError('Пользователь с указанным _id не найден'));
+  //   } else next(err);
+  // });
 };
 
 module.exports = {

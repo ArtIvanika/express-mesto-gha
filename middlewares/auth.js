@@ -19,5 +19,5 @@ module.exports = (req, res, next) => {
 
   req.user = payload;
 
-  next(); // пропускаем запрос дальше
+  return next(); // пропускаем запрос дальше
 };

@@ -10,6 +10,8 @@ const {
   getCurrentUser,
 } = require('../controllers/users');
 
+router.get('/users/me', getCurrentUser);
+
 router.get('/users', getUsers);
 
 router.get('/users/:userId', celebrate({
@@ -18,8 +20,6 @@ router.get('/users/:userId', celebrate({
   }),
 }), getUserById);
 // router.get('/users/:_id', getUserById);
-
-router.get('/users/me', getCurrentUser);
 
 router.patch('/users/me', celebrate({
   body: Joi.object().keys({
