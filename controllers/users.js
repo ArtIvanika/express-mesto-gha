@@ -87,7 +87,13 @@ const createUser = (req, res, next) => {
       User.create({
         name, about, avatar, email, password: hash,
       })
-        .then((user) => res.status(201).send({ data: user }))
+        .then((user) => {
+          const { _id } = user;
+          res.status(201).send({
+            name, about, avatar, email, _id,
+          // data: user
+          });
+        })
         .catch((err) => {
           if (err.name === 'ValidationError') {
             return next(new BadRequest('Переданы некорректные данные'));
@@ -168,7 +174,7 @@ const getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь с указанным _id не найден');
       }
-      res.status(200).send(user);
+      res.send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
