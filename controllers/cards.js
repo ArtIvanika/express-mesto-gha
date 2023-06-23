@@ -24,7 +24,7 @@ const createCard = (req, res, next) => {
 };
 
 const deleteCardById = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  Card.findById(req.params.cardId)
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Данная карточка не найдена');
@@ -32,17 +32,16 @@ const deleteCardById = (req, res, next) => {
       if (card.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Недостаточно прав для удаления карточки');
       }
-      res.send({ data: card });
+      Card.findByIdAndRemove(req.params.cardId)
+        .then(() => res.status(200).send({ data: card }))
+        .catch((err) => {
+          if (err.name === 'ValidationError') {
+            next(new BadRequest('Некоректный запрос'));
+          }
+          return next(err);
+        });
     })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequest('Некоректный запрос'));
-      }
-      if (err.name === 'CastError') {
-        next(new NotFoundError('Переданы невалидные данные'));
-      }
-      next(err);
-    });
+    .catch(next);
 };
 
 const putCardLike = (req, res, next) => {

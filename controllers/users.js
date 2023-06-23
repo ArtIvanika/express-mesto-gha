@@ -5,13 +5,6 @@ const NotFoundError = require('../errors/NotFoundError'); // 404
 const BadRequest = require('../errors/BadRequest'); // 400
 const ConflictingRequest = require('../errors/ConflictingRequest'); // 409
 
-// const {
-//   STATUS_OK,
-//   ERROR_INCORRECT_DATA, 400
-//   ERROR_NOT_FOUND, 404
-//   ERROR_DEFAULT,  500
-// } = require('../errors/status');
-
 const getUsers = (req, res, next) => {
   User.find({})
     .then((user) => res.send({ data: user }))
@@ -37,46 +30,6 @@ const getUserById = (req, res, next) => {
       next(err);
     });
 };
-
-// const getUserById = (req, res) => {
-//   const userId = req.params._id;
-
-//   User.findById(userId)
-//     .orFail(new Error('NotValidId'))
-//     .then((user) => res.send({ data: user }))
-//     .catch((err) => {
-//       if (err.name === 'CastError') {
-//         res.status(ERROR_INCORRECT_DATA)
-//  .send({ message: 'Переданы некорректные данные при создании пользователя.' });
-//       } else if (err.message === 'NotValidId') {
-//         res.status(ERROR_NOT_FOUND)
-//  .send({ message: 'Пользователь по указанному _id не найден.' });
-//         return;
-//       }
-//       res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию.' });
-//     });
-// };
-
-// // попробовать orFail но тест выдает ошибку "Код ответа равен 404"
-// const getUserById = (req, res) => {
-//   const { userId } = req.params;
-//   User.findById(userId)
-//     .orFail(new Error('NotValidId'))
-//     .then((user) => {
-//       res.send({ data: user });
-//     })
-//     .catch((err) => {
-//       if (err.name === 'CastError') {
-//         res.status(ERROR_INCORRECT_DATA)
-//         .send({ message: 'Переданы некорректные данные при создании пользователя.' });
-//       } else if (err.name === 'NotValidId') {
-//         res.status(ERROR_NOT_FOUND)
-//         .send({ message: 'Пользователь по указанному _id не найден.' });
-//         return;
-//       }
-//       res.status(ERROR_DEFAULT).send({ message: 'Ошибка по умолчанию.' });
-//     });
-// };
 
 const createUser = (req, res, next) => {
   const {
